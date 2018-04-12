@@ -1,0 +1,36 @@
+{% extends "admin/change_form.html" %}
+{% load staticfiles %}
+
+{% block extrahead %}
+{{ block.super }}
+
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+
+    <script>
+        {% for field in override_field_name %}
+            (function(window, document, undefined){
+                var overrideEl = document.getElementById("id_{{ field }}_enable_override");
+                var overrideObj = document.getElementById("id_{{ field }}_override_obj");
+
+                function checkOverride(){
+                    if (overrideEl.checked) {
+                        overrideObj.disabled = false;
+                    } else {
+                        overrideObj.value = "";
+                        overrideObj.disabled = true;
+                    }
+                }
+
+                overrideEl.addEventListener("change", checkOverride);
+
+                checkOverride();
+
+            })(window, document);
+        {% endfor %}
+
+    </script>
+
+{% endblock %}
