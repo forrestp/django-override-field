@@ -4,6 +4,13 @@ from django.db.models import Field, BooleanField
 from django.utils.deconstruct import deconstructible
 
 
+def _make_property(self, field_name):
+    def _get_amount(self, default=None):
+        return getattr(self.instance, field_name, default)
+    def _set_amount(self, value):
+        return setattr(self.instance, field_name, value)
+    return property(_get_amount, _set_amount)
+
 def _generate_instance_class(owner_field):
     class MultiColumnFieldInstance(object):
         """
