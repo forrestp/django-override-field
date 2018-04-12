@@ -1,0 +1,1 @@
+Django app that provides an override_field_factory for creating override fields and integrating with the Django admin site
